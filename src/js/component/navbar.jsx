@@ -8,7 +8,7 @@ export const Navbar = () => {
                 <img
                     width="100"
                     height="100"
-                    src="https://img.icons8.com/ios-filled/100/star-wars.png"
+                    src="https://img.icons8.com/ios-filled/100/000000/star-wars.png"
                     alt="star-wars"
                 />
             </Link>
