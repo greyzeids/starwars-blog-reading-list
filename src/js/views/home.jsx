@@ -6,12 +6,12 @@ export const Home = () => {
     const { store } = useContext(Context);
 
     return (
-        <div className="mt-5 ms-5 d-flex flex-column">
+        <div className="ms-5 d-flex flex-column">
             <h1 className="text-danger">Characters</h1>
             {store.listPeople.length > 0 ? (
                 <ul className="d-flex list-group flex-row overflow-auto mb-5">
                     {store.listPeople.map((character, index) => (
-                        <li className="list-group p-5" key={index}>
+                        <li className="list-group pe-5 pt-4" key={index}>
                             {character.properties ? (
                                 <Card
                                     name={character.name}
@@ -19,7 +19,6 @@ export const Home = () => {
                                     hairColor={character.properties.hair_color}
                                     eyeColor={character.properties.eye_color}
                                     imageUrl={character.properties.imageUrl}
-                                    type="people"
                                     id={character.uid}
                                 />
                             ) : (
@@ -36,7 +35,7 @@ export const Home = () => {
             {store.listPlanets.length > 0 ? (
                 <ul className="d-flex list-group flex-row overflow-auto mb-5">
                     {store.listPlanets.map((planet, index) => (
-                        <li className="list-group p-5" key={index}>
+                        <li className="list-group pe-5 pt-4" key={index}>
                             {planet.properties ? (
                                 <Card
                                     name={planet.name}
@@ -44,6 +43,7 @@ export const Home = () => {
                                     population={planet.properties.population}
                                     terrain={planet.properties.terrain}
                                     imageUrl={planet.properties.imageUrl}
+                                    id={planet.uid}
                                 />
                             ) : (
                                 <div>Loading...</div>
@@ -59,7 +59,7 @@ export const Home = () => {
             {store.listVehicles.length > 0 ? (
                 <ul className="d-flex list-group flex-row overflow-auto mb-5">
                     {store.listVehicles.map((vehicle, index) => (
-                        <li className="list-group p-5" key={index}>
+                        <li className="list-group pe-5 pt-4" key={index}>
                             {vehicle.properties ? (
                                 <Card
                                     name={vehicle.name}
@@ -71,6 +71,7 @@ export const Home = () => {
                                         vehicle.properties.cost_in_credits
                                     }
                                     imageUrl={vehicle.properties.imageUrl}
+                                    id={vehicle.uid}
                                 />
                             ) : (
                                 <div>Loading...</div>

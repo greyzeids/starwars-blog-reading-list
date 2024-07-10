@@ -5,22 +5,39 @@ export const Context = React.createContext(null);
 
 const injectContext = (PassedComponent) => {
     const StoreWrapper = (props) => {
-        const [state, setState] = useState(
+        const initialState =
+            JSON.parse(localStorage.getItem("appState")) ||
             getState({
                 getStore: () => state.store,
                 getActions: () => state.actions,
                 setStore: (updatedStore) =>
-                    setState((prevState) => ({
-                        store: { ...prevState.store, ...updatedStore },
-                        actions: { ...prevState.actions },
-                    })),
-            })
-        );
+                    setState((prevState) => {
+                        const newState = {
+                            store: { ...prevState.store, ...updatedStore },
+                            actions: { ...prevState.actions },
+                        };
+                        localStorage.setItem(
+                            "appState",
+                            JSON.stringify(newState)
+                        );
+                        return newState;
+                    }),
+            });
+
+        const [state, setState] = useState(initialState);
 
         useEffect(() => {
-            state.actions.getPeople();
-            state.actions.getVehicles();
-            state.actions.getPlanets();
+            if (!localStorage.getItem("appState")) {
+                const fetchAllData = async () => {
+                    await Promise.all([
+                        state.actions.getPeople(),
+                        state.actions.getVehicles(),
+                        state.actions.getPlanets(),
+                    ]);
+                };
+
+                fetchAllData();
+            }
         }, []);
 
         return (

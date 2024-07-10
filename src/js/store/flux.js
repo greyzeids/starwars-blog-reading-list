@@ -34,6 +34,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
     };
 
+    const fetchInformation = async (type, id) => {
+        try {
+            const response = await fetch(`${API_URL}${type}/${id}`);
+            const data = await response.json();
+            return data.result.properties;
+        } catch (error) {
+            console.error(
+                `Error fetching information for ${type} with id ${id}:`,
+                error
+            );
+            return null;
+        }
+    };
+
     return {
         store: {
             listPeople: [],
