@@ -16,3 +16,9 @@ body {
     --bs-text-opacity: 1;
     color: white !important;
 }
+
+.separator-red {
+    border: 0;
+    height: 1px;
+    background-color: red;
+}

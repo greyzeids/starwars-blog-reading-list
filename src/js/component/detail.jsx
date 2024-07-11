@@ -21,9 +21,9 @@ const Detail = () => {
     }
 
     return (
-        <div className="container d-flex justify-content-center mt-5">
-            <div className="card mb-3" style={{ width: "100%" }}>
-                <div className="row g-0">
+        <div>
+            <div className="container my-5">
+                <div className="row">
                     <div className="col-md-4">
                         <img
                             src={item.imageUrl}
@@ -31,40 +31,41 @@ const Detail = () => {
                             alt={item.name}
                         />
                     </div>
-                    <div className="col-md-8">
-                        <div className="card-body">
-                            <h5 className="card-title">{item.name}</h5>
-                            {item.gender && (
-                                <p className="card-text">
-                                    Gender: {item.gender} <br />
-                                    Hair Color: {item.hair_color} <br />
-                                    Eye Color: {item.eye_color} <br />
-                                </p>
-                            )}
-                            {item.climate && (
-                                <p className="card-text">
-                                    Climate: {item.climate} <br />
-                                    Population: {item.population} <br />
-                                    Terrain: {item.terrain} <br />
-                                </p>
-                            )}
-                            {item.model && (
-                                <p className="card-text">
-                                    Model: {item.model} <br />
-                                    Manufacturer: {item.manufacturer} <br />
-                                    Cost in Credits: {item.cost_in_credits}{" "}
-                                    <br />
-                                </p>
-                            )}
-                            <p className="card-text">
-                                "No additional information available."
-                            </p>
-                            <p className="card-text">
-                                <small className="text-body-secondary">
-                                    Last updated just now
-                                </small>
-                            </p>
-                        </div>
+                    <div className="col-md-8 d-flex flex-column justify-content-center align-items-center">
+                        <h1 className="text-white">{item.name}</h1>
+                        <p className="text-white">
+                            {item.description || "No description available."}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container my-5">
+                <hr className="separator-red" />
+                <div className="row text-center text-danger">
+                    <div className="col-2">
+                        <h2 className="fs-3">Name</h2>
+                        <p className="fs-5">{item.name}</p>
+                    </div>
+                    <div className="col-2">
+                        <h2 className="fs-3">Birth Year</h2>
+                        <p className="fs-5">{item.birth_year}</p>
+                    </div>
+                    <div className="col-2">
+                        <h2 className="fs-3">Gender</h2>
+                        <p className="fs-5">{item.gender}</p>
+                    </div>
+                    <div className="col-2">
+                        <h2 className="fs-3">Height</h2>
+                        <p className="fs-5">{item.height}</p>
+                    </div>
+                    <div className="col-2">
+                        <h2 className="fs-3">Skin Color</h2>
+                        <p className="fs-5">{item.skin_color}</p>
+                    </div>
+                    <div className="col-2">
+                        <h2 className="fs-3">Eye Color</h2>
+                        <p className="fs-5">{item.eye_color}</p>
                     </div>
                 </div>
             </div>
@@ -87,4 +88,5 @@ Detail.propTypes = {
     type: PropTypes.string,
     id: PropTypes.string,
 };
+
 export default Detail;
