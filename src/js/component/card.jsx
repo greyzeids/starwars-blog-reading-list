@@ -43,10 +43,16 @@ const Card = (props) => {
                 )}
                 <Link
                     to={`/single/${props.type}/${props.id}`}
-                    className="btn btn-outline-warning mb-4"
+                    className="btn btn-outline-warning mb-4 me-5"
                 >
                     Learn more!
                 </Link>
+                <button
+                    type="button"
+                    className="btn btn-outline-warning mb-4 ms-5"
+                >
+                    <i className="fa-solid fa-star"></i>
+                </button>
             </div>
         </div>
     );

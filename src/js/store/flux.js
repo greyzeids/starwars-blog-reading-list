@@ -38,10 +38,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
             const response = await fetch(`${API_URL}${type}/${id}`);
             const data = await response.json();
-            const properties = data.result.properties;
-            properties.imageUrl = `${IMG_URL}${
-                type === "people" ? "characters" : type
-            }/${id}.jpg`;
+
+            if (!data || !data.result || !data.result.properties) {
+                throw new Error(
+                    `Invalid data format for ${type} with id ${id}`
+                );
+            }
+
+            const properties = {
+                ...data.result.properties,
+                imageUrl: `${IMG_URL}${
+                    type === "people" ? "characters" : type
+                }/${id}.jpg`,
+                description:
+                    data.result.description || "No description available.",
+            };
+
             return properties;
         } catch (error) {
             console.error(
@@ -51,6 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return null;
         }
     };
+
     return {
         store: {
             listPeople: [],
