@@ -1,8 +1,7 @@
-// home.js
-
 import React, { useContext } from "react";
 import Card from "../component/card";
 import { Context } from "../store/appContext";
+import MusicPlayer from "../component/musicplayer";
 
 export const Home = () => {
     const { store } = useContext(Context);
@@ -87,6 +86,13 @@ export const Home = () => {
             ) : (
                 <div>Loading...</div>
             )}
+            <div className="container">
+                <div className="row justify-content-center">
+                    <MusicPlayer videoUrl="https://www.youtube.com/embed/WQ_557JbIpQ" />
+                    <MusicPlayer videoUrl="https://www.youtube.com/embed/bD7bpG-zDJQ" />
+                    <MusicPlayer videoUrl="https://www.youtube.com/embed/j-ZlTTPcM1o" />
+                </div>
+            </div>
         </div>
     );
 };

@@ -51,7 +51,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             return null;
         }
     };
-
     return {
         store: {
             listPeople: [],

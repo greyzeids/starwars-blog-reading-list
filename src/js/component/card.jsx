@@ -7,11 +7,7 @@ const Card = (props) => {
     const [imageUrl, setImageUrl] = useState(props.imageUrl);
 
     const ImageError = () => {
-        if (props.type === "planets" && props.id === "1") {
-            setImageUrl(tatooine);
-        } else {
-            setImageUrl(tatooine);
-        }
+        setImageUrl(tatooine);
     };
 
     return (
