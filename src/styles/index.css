@@ -1,7 +1,18 @@
 body {
-    background-color: rgb(52, 52, 52);
+    background-color: rgb(18, 18, 18);
 }
 
 .navbar {
-    background-color: rgb(52, 52, 52) !important;
+    background-color: rgb(18, 18, 18) !important;
+}
+
+:root {
+    --bs-body-bg: none;
+    --bs-border-color-translucent: none;
+    --bs-body-color: white;
+}
+
+.text-body-secondary {
+    --bs-text-opacity: 1;
+    color: white !important;
 }

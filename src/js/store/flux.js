@@ -38,7 +38,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
             const response = await fetch(`${API_URL}${type}/${id}`);
             const data = await response.json();
-            return data.result.properties;
+            const properties = data.result.properties;
+            properties.imageUrl = `${IMG_URL}${
+                type === "people" ? "characters" : type
+            }/${id}.jpg`;
+            return properties;
         } catch (error) {
             console.error(
                 `Error fetching information for ${type} with id ${id}:`,

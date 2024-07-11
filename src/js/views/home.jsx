@@ -1,3 +1,5 @@
+// home.js
+
 import React, { useContext } from "react";
 import Card from "../component/card";
 import { Context } from "../store/appContext";
@@ -20,6 +22,7 @@ export const Home = () => {
                                     eyeColor={character.properties.eye_color}
                                     imageUrl={character.properties.imageUrl}
                                     id={character.uid}
+                                    type="people"
                                 />
                             ) : (
                                 <div>Loading...</div>
@@ -44,6 +47,7 @@ export const Home = () => {
                                     terrain={planet.properties.terrain}
                                     imageUrl={planet.properties.imageUrl}
                                     id={planet.uid}
+                                    type="planets"
                                 />
                             ) : (
                                 <div>Loading...</div>
@@ -72,6 +76,7 @@ export const Home = () => {
                                     }
                                     imageUrl={vehicle.properties.imageUrl}
                                     id={vehicle.uid}
+                                    type="vehicles"
                                 />
                             ) : (
                                 <div>Loading...</div>

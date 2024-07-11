@@ -1,44 +1,34 @@
-import React, { useState, useEffect } from "react";
-import getState from "./flux.js";
+import React, { createContext, useEffect, useState } from "react";
+import getState from "./flux";
 
-export const Context = React.createContext(null);
+export const Context = createContext(null);
 
 const injectContext = (PassedComponent) => {
     const StoreWrapper = (props) => {
-        const initialState =
-            JSON.parse(localStorage.getItem("appState")) ||
+        const [state, setState] = useState(
             getState({
-                getStore: () => state.store,
+                getStore: () => {
+                    const storedState = localStorage.getItem("store");
+                    return storedState ? JSON.parse(storedState) : {};
+                },
                 getActions: () => state.actions,
                 setStore: (updatedStore) =>
-                    setState((prevState) => {
-                        const newState = {
-                            store: { ...prevState.store, ...updatedStore },
-                            actions: { ...prevState.actions },
-                        };
-                        localStorage.setItem(
-                            "appState",
-                            JSON.stringify(newState)
-                        );
-                        return newState;
+                    setState({
+                        store: Object.assign(state.store, updatedStore),
+                        actions: { ...state.actions },
                     }),
-            });
-
-        const [state, setState] = useState(initialState);
+            })
+        );
 
         useEffect(() => {
-            if (!localStorage.getItem("appState")) {
-                const fetchAllData = async () => {
-                    await Promise.all([
-                        state.actions.getPeople(),
-                        state.actions.getVehicles(),
-                        state.actions.getPlanets(),
-                    ]);
-                };
-
-                fetchAllData();
-            }
+            state.actions.getPeople();
+            state.actions.getVehicles();
+            state.actions.getPlanets();
         }, []);
+
+        useEffect(() => {
+            localStorage.setItem("store", JSON.stringify(state.store));
+        }, [state.store]);
 
         return (
             <Context.Provider value={state}>

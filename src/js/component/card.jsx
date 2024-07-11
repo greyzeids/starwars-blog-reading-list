@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import tatooine from "../../img/tatooine.webp";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
     const [imageUrl, setImageUrl] = useState(props.imageUrl);
@@ -44,9 +45,12 @@ const Card = (props) => {
                         Cost in Credits: {props.cost_in_credits} <br />
                     </p>
                 )}
-                <a href="#" className="btn btn-outline-primary">
+                <Link
+                    to={`/single/${props.type}/${props.id}`}
+                    className="btn btn-outline-warning mb-4"
+                >
                     Learn more!
-                </a>
+                </Link>
             </div>
         </div>
     );
