@@ -1,24 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
-import PropTypes from "prop-types"; // Importa PropTypes
+import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import tatooine from "../../img/tatooine.webp";
 
 const Detail = () => {
     const { actions } = useContext(Context);
     const { type, theid } = useParams();
     const [item, setItem] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
         const fetchItem = async () => {
             try {
                 const data = await actions.getInformation(type, theid);
                 setItem(data);
+                setImageUrl(data.imageUrl);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
         fetchItem();
     }, [type, theid, actions]);
+
+    const ImageError = () => {
+        setImageUrl(tatooine);
+    };
 
     if (!item) {
         return <div>Loading...</div>;
@@ -30,9 +37,10 @@ const Detail = () => {
                 <div className="row">
                     <div className="col-md-4">
                         <img
-                            src={item.imageUrl}
+                            src={imageUrl}
                             className="card-img-top"
                             alt={item.name}
+                            onError={ImageError}
                         />
                     </div>
                     <div className="col-md-8 d-flex flex-column justify-content-center align-items-center">
@@ -48,7 +56,7 @@ const Detail = () => {
                 <hr className="separator-red" />
                 <div className="row text-center text-danger">
                     {type === "people" && (
-                        <React.Fragment>
+                        <>
                             <div className="col-2">
                                 <h2 className="fs-3">Name</h2>
                                 <p className="fs-5">{item.name}</p>
@@ -73,11 +81,11 @@ const Detail = () => {
                                 <h2 className="fs-3">Eye Color</h2>
                                 <p className="fs-5">{item.eye_color}</p>
                             </div>
-                        </React.Fragment>
+                        </>
                     )}
 
                     {type === "planets" && (
-                        <React.Fragment>
+                        <>
                             <div className="col-2">
                                 <h2 className="fs-3">Name</h2>
                                 <p className="fs-5">{item.name}</p>
@@ -114,11 +122,11 @@ const Detail = () => {
                                 <h2 className="fs-3">Surface Water</h2>
                                 <p className="fs-5">{item.surface_water}</p>
                             </div>
-                        </React.Fragment>
+                        </>
                     )}
 
                     {type === "vehicles" && (
-                        <React.Fragment>
+                        <>
                             <div className="col-2">
                                 <h2 className="fs-3">Name</h2>
                                 <p className="fs-5">{item.name}</p>
@@ -153,7 +161,7 @@ const Detail = () => {
                                 <h2 className="fs-3">Passengers</h2>
                                 <p className="fs-5">{item.passengers}</p>
                             </div>
-                        </React.Fragment>
+                        </>
                     )}
                 </div>
             </div>
@@ -184,6 +192,7 @@ Detail.propTypes = {
     imageUrl: PropTypes.string,
     type: PropTypes.string,
     id: PropTypes.string,
+    imageUrl: PropTypes.string.isRequired,
 };
 
 export default Detail;

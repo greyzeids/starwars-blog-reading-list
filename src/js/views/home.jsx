@@ -87,6 +87,7 @@ export const Home = () => {
                 <div>Loading...</div>
             )}
             <div className="container">
+                <h1 className="text-danger mb-5">Related videos</h1>
                 <div className="row justify-content-center">
                     <MusicPlayer videoUrl="https://www.youtube.com/embed/WQ_557JbIpQ" />
                     <MusicPlayer videoUrl="https://www.youtube.com/embed/bD7bpG-zDJQ" />
