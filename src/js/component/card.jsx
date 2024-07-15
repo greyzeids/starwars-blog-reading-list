@@ -47,7 +47,10 @@ const Card = (props) => {
                 >
                     Learn more!
                 </Link>
-                <button type="button" className="btn btn-outline-warning ms-5">
+                <button
+                    type="button"
+                    className="btn btn-outline-warning mb-4 ms-5"
+                >
                     <i className="fa-solid fa-star"></i>
                 </button>
             </div>
