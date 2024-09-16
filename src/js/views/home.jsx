@@ -1,10 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "../component/card";
 import { Context } from "../store/appContext";
 import MusicPlayer from "../component/musicplayer";
 
 export const Home = () => {
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await Promise.all([
+                actions.getPeople(),
+                actions.getPlanets(),
+                actions.getVehicles(),
+            ]);
+        };
+
+        fetchData();
+    }, []); // Ensure the dependency array is empty to run only once on mount
 
     return (
         <div className="ms-5 d-flex flex-column">

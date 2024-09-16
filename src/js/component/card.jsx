@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import tatooine from "../../img/tatooine.webp";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 const Card = (props) => {
     const [imageUrl, setImageUrl] = useState(props.imageUrl);
+    const { addFavorite } = useContext(Context);
 
     const ImageError = () => {
         setImageUrl(tatooine);
+    };
+
+    const handleAddFavorite = () => {
+        addFavorite({
+            name: props.name,
+            type: props.type,
+            id: props.id,
+        });
     };
 
     return (
@@ -50,6 +60,7 @@ const Card = (props) => {
                 <button
                     type="button"
                     className="btn btn-outline-warning mb-4 ms-5"
+                    onClick={handleAddFavorite}
                 >
                     <i className="fa-solid fa-star"></i>
                 </button>

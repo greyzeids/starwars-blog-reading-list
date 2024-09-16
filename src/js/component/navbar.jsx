@@ -1,7 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+    const { favorites } = useContext(Context);
+    const navigate = useNavigate();
+
+    const handleFavoriteClick = (favorite) => {
+        navigate(`/single/${favorite.type}/${favorite.id}`);
+    };
+
+    if (!favorites) {
+        return null; // O algún manejo de error adecuado
+    }
+
     return (
         <nav className="navbar navbar-light bg-light">
             <Link to="/" className="navbar-brand ms-5">
@@ -23,11 +35,18 @@ export const Navbar = () => {
                         Favorites
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <Link to="/demo" className="dropdown-item">
-                                Action
-                            </Link>
-                        </li>
+                        {favorites.map((favorite, index) => (
+                            <li key={index}>
+                                <span
+                                    className="dropdown-item"
+                                    onClick={() =>
+                                        handleFavoriteClick(favorite)
+                                    }
+                                >
+                                    {favorite.name}
+                                </span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>

@@ -192,7 +192,6 @@ Detail.propTypes = {
     imageUrl: PropTypes.string,
     type: PropTypes.string,
     id: PropTypes.string,
-    imageUrl: PropTypes.string.isRequired,
 };
 
 export default Detail;

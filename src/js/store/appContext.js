@@ -12,26 +12,56 @@ const injectContext = (PassedComponent) => {
                     return storedState ? JSON.parse(storedState) : {};
                 },
                 getActions: () => state.actions,
-                setStore: (updatedStore) =>
-                    setState({
+                setStore: (updatedStore) => {
+                    const newState = {
                         store: Object.assign(state.store, updatedStore),
                         actions: { ...state.actions },
-                    }),
+                    };
+                    setState(newState);
+                    localStorage.setItem(
+                        "store",
+                        JSON.stringify(newState.store)
+                    );
+                },
             })
         );
 
+        const [favorites, setFavorites] = useState(() => {
+            const storedFavorites = localStorage.getItem("favorites");
+            return storedFavorites ? JSON.parse(storedFavorites) : [];
+        });
+
+        const addFavorite = (favorite) => {
+            setFavorites((prevFavorites) => {
+                const newFavorites = [...prevFavorites, favorite];
+                localStorage.setItem("favorites", JSON.stringify(newFavorites));
+                return newFavorites;
+            });
+        };
+
         useEffect(() => {
-            state.actions.getPeople();
-            state.actions.getVehicles();
-            state.actions.getPlanets();
+            if (
+                !state.store.listPeople ||
+                state.store.listPeople.length === 0
+            ) {
+                state.actions.getPeople();
+            }
+            if (
+                !state.store.listVehicles ||
+                state.store.listVehicles.length === 0
+            ) {
+                state.actions.getVehicles();
+            }
+            if (
+                !state.store.listPlanets ||
+                state.store.listPlanets.length === 0
+            ) {
+                state.actions.getPlanets();
+            }
         }, []);
 
-        useEffect(() => {
-            localStorage.setItem("store", JSON.stringify(state.store));
-        }, [state.store]);
-
         return (
-            <Context.Provider value={state}>
+            <Context.Provider value={{ ...state, favorites, addFavorite }}>
                 <PassedComponent {...props} />
             </Context.Provider>
         );

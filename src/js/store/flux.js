@@ -4,6 +4,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
     const fetchData = async (endpoint, storeKey) => {
         try {
+            const storedData = localStorage.getItem(storeKey);
+            if (storedData) {
+                setStore({ [storeKey]: JSON.parse(storedData) });
+                return;
+            }
+
             const response = await fetch(`${API_URL}${endpoint}/`);
             const data = await response.json();
 
@@ -28,6 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
             );
 
+            localStorage.setItem(storeKey, JSON.stringify(updatedResults));
             setStore({ [storeKey]: updatedResults });
         } catch (error) {
             console.error(`Error fetching ${storeKey}:`, error);
